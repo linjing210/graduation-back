@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.aiit.gradution.mapper.TopicMapper">
+    <insert id="addTopicTag">
+        INSERT INTO topic_type_ref (topicId, topicTypeId) VALUES
+        <foreach collection="tagIds" item="tagId" separator=",">
+            (#{topicId}, #{tagId})
+        </foreach>
+    </insert>
+
+    <insert id="addTopicBatch">
+        insert into topic(userId, topicName, startTime, endTime, context, cover, status, gmtModified, gmtCreate) values
+        <foreach collection="topicList" item="topic" separator=",">
+            (#{topic.userId}, #{topic.topicName}, #{topic.startTime}, #{topic.endTime}, #{topic.context}, #{topic.cover}, #{topic.status}, #{topic.gmtModified}, #{topic.gmtCreate})
+        </foreach>
+    </insert>
+
+<!--    <select id="queryTopicList" resultType="cn.edu.aiit.gradution.pojo.vo.TopicVo">-->
+<!--        select *, tr.topicTypeId from topic t, topic_type_ref tr where t.topicId = tr.topicId-->
+<!--        <if test="tagIds != null and tagIds.size > 0">-->
+<!--            <foreach collection="tagIds" item="tagId" separator="," open="and topicTypeId in(" close=")">-->
+<!--                #{tagId}-->
+<!--            </foreach></if><if test="userIds != null and userIds.size > 0">-->
+<!--            <foreach collection="userIds" item="userId" separator="," open="and userId in(" close=")">-->
+<!--                #{userId}</foreach>-->
+<!--        </if>-->
+<!--        limit #{offset}, #{size}-->
+<!--    </select>-->
+
+</mapper>

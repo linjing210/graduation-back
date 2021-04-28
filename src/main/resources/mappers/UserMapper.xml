@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.edu.aiit.gradution.mapper.UserMapper">
+    <insert id="addUserBatch" useGeneratedKeys="true" keyProperty="userId">
+        insert into user(loginname, email, username, password, originalClass, status, gmtModified, gmtCreate, headerImage) values
+        <foreach collection="userList" item="user" separator=",">
+            (#{user.loginname}, #{user.email}, #{user.username}, #{user.password}, #{user.originalClass}, #{user.status}, #{user.gmtModified}, #{user.gmtCreate},
+            #{user.headerImage})
+        </foreach>
+    </insert>
+
+<!--    <select id="" resultType="">-->
+<!--        select u.*, ur.roleId  from user u, user_role ur where u.userId = ur.userId-->
+<!--        <where>-->
+<!--            <if test="loginname != null">loginame like #{loginname}"%"</if>-->
+<!--            <if test="username != null">username like #{username}"%"</if>-->
+<!--            <if test="status != null">status = #{status}</if>-->
+<!--            <if test="roleId != null">roleId = #{roleId}</if>-->
+<!--        </where>-->
+<!--        <if test="offset != null and size != null">limit #{offset}, #{size}</if>-->
+<!--    </select>-->
+</mapper>

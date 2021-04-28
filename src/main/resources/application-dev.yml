@@ -1,0 +1,105 @@
+spring:
+  ## 数据源配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/graduation?useUnicode=true&characterEncoding=UTF-8&serverTimezone=GMT%2B8
+    username: root
+    password: lin@Jing1208
+    # 设置数据库连接池为druid
+    type: com.alibaba.druid.pool.DruidDataSource
+    # 其他参数配置（选配，不配置则采用默认值）
+    initialSize: 5 # 初始化连接数
+    minIdle: 5 # 最小连接数
+    maxActive: 20 # 最大连接数
+    maxWait: 60000 # 最长等待时间
+    timeBetweenEvictionRunsMillis: 60000
+    minEvictableIdleTimeMillis: 300000
+    validationQuery: SELECT1FROMDUAL
+    testWhileIdle: true
+    testOnBorrow: false
+    testOnReturn: false
+
+    # 开启sql监控
+    filters: stat,wall,log4j
+    logSlowSql: true
+
+
+  ### 邮件服务配置
+  mail:
+    # 配置 SMTP 服务器地址
+    host: smtp.qq.com
+    # 发送者邮箱
+    username: 1848480294@qq.com
+    # 配置密码，注意不是真正的密码，而是刚刚申请到的授权码
+    password: ibmzwbplhyfeejcc
+    # 端口号465或587
+    port: 587
+    # 默认的邮件编码为UTF-8
+    default-encoding: UTF-8
+    # 配置SSL 加密工厂
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        #表示开启 DEBUG 模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+  redis:
+    host: qslinjing.com
+    port: 6379
+    password: linjing
+    database: 0
+  servlet:
+    multipart:
+      enabled: true
+      max-file-size: 20971520
+      max-request-size: 104857600
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+  web:
+    resources:
+      static-locations: classpath:/static/,file:${custom.file.upload.root}/
+server:
+  port: 8083
+
+mybatis-plus:
+  configuration:
+    map-underscore-to-camel-case: true
+  global-config:
+    db-config:
+      logic-not-delete-value: 1
+      logic-delete-value: 0
+  mapper-locations: classpath:mappers/*.xml
+
+
+# 默认用户信息
+custom:
+  user:
+    header.url: /avatar/default.gif
+    password: 123456
+    role:
+      teacher: 3
+      student: 4
+
+
+  # 默认文件上传配置
+  # 文件类型配置
+  file:
+    type:
+      task: 1
+      topic: 2
+      common: 3
+      image: 4
+      temp: 5
+
+    # 文件上传目录配置
+    upload:
+      root: D:/upload
+      # 临时文件存放目录
+      temp: ${custom.file.upload.root}/temp
+      topic: ${custom.file.upload.root}/topic
+      task: ${custom.file.upload.root}/task
+      common: ${custom.file.upload.root}/common
+      image: ${custom.file.upload.root}/image
+
+  topic:
+    cover: /avatar/default.gif
